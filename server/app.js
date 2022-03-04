@@ -12,21 +12,20 @@ var privateKey  = fs.readFileSync(__dirname+'/key.pem', 'utf8');
 var certificate = fs.readFileSync(__dirname+'/cert.pem', 'utf8');
 var credentials = {key: privateKey, cert: certificate};
 const app = express();
-
+var httpsServer = https.createServer(credentials, app);
 app.use(body());
 app.use(express.static(path.resolve(__dirname, '..', 'build')));
 
 
-var httpsServer = https.createServer(credentials, app);
 
-//app.use(body());
-//app.use(express.static(path.resolve(__dirname, '..', 'build')));
+
+
 
 const db = mysql.createConnection({
-    host: '172.19.128.1',
-    user: 'name',
-    password: '1234',
-    database: 'name147'
+    host: '172.21.0.1',
+    user: 'name1478',
+    password: '123456789',
+    database: '147'
 });
 // show data
 app.get('/data', function(req,res){
@@ -64,7 +63,8 @@ app.post('/data', function(req, res){
     let data = {
         id:req.body.idkey,
         firstname:req.body.firstname,
-        lastname:req.body.lastname
+        lastname:req.body.lastname,
+        email:req.body.email
     };
     let sql = 'INSERT INTO users SET ?';
     db.query(sql, data, (err, result)=>{
