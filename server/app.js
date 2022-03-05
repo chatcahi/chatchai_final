@@ -30,7 +30,7 @@ const db = mysql.createConnection({
 // show data
 app.get('/data', function(req,res){
     console.log("Hello in /data ");
-    let sql = 'SELECT * FROM users;';
+    let sql = 'SELECT * FROM `users` ORDER by size;';
     db.query(sql, (err, result)=>{
         if(err) throw err;
         console.log(result);
