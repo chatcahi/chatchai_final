@@ -16,8 +16,8 @@ export default class Facebook extends Component {
     picture: ""
   };
   responseFacebook = response => {
-    // console.log(response);
-
+    // Login เก็บข้อมูล response ลง LocalStorage
+    localStorage.setItem('user',JSON.stringify(response))
     this.setState({
       isLoggedIn: true,
       userID: response.userID,
@@ -27,9 +27,11 @@ export default class Facebook extends Component {
     });
   };
 
-  componentClicked = () => console.log("clicked");
+  componentClicked = () => console.log("Login facebook successfuly");
 
   logoutFacebook = () => {
+    // เมื่อทำการ Logout จะทำการลบ key user
+    localStorage.removeItem('user')
     this.setState({
       isLoggedIn: false,
       userID: '',
@@ -41,24 +43,24 @@ export default class Facebook extends Component {
 
   render() {
     let fbContent;
-
-    if (this.state.isLoggedIn) {
+    // ทำการเช็คข้อมูล LOcalStorage ว่ามีการ ล็อกอินเข้าหรือไม่
+    if (localStorage.getItem('user')!== null) {
       fbContent = (
         <div
           style={{
             width: "95%",
             margin: "auto",
             background: "black",
-            color: 'white',
+            color: 'black',
             padding: "25px",
             position: 'absolute',
             zIndex: 99,
-            backgroundImage: 'linear-gradient(45deg, rgba(218, 132, 230, 0.84) 0%, rgba(179, 0, 89, 1) 83%)'
+            background: 'linear-gradient(120deg, rgba(0,91,234,1) 0%, rgba(0,198,251,1) 100%)'
           }}
         >
-          <img src={this.state.picture} alt={this.state.name} />
-          <h2>Welcome {this.state.name}</h2>
- 	  email: {this.state.email}
+          <img src={JSON.parse(localStorage.getItem('user')).picture.data.url} alt />
+          <h2>Welcome {" "}{JSON.parse(localStorage.getItem('user')).name}</h2>
+ 	        email: {JSON.parse(localStorage.getItem('user')).email}
           <div className="my-3"><a className="btn btn-danger" href="/" onClick={this.logoutFacebook}>Logout</a></div>
           <BrowserRouter>
             <br /><br /><div className="btn-group btn-group-lg"><ButtonRegister /><ButtonShowdata /></div>
