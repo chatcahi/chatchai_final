@@ -25,12 +25,12 @@ const db = mysql.createConnection({
     host: '172.25.192.1',
     user: 'name1478',
     password: '123456789',
-    database: '147'
+    database: 'shirt'
 });
 // show data
 app.get('/data', function(req,res){
     console.log("Hello in /data ");
-    let sql = 'SELECT * FROM users;';
+    let sql = 'SELECT * FROM `users` ORDER by size;';
     db.query(sql, (err, result)=>{
         if(err) throw err;
         console.log(result);
@@ -50,8 +50,8 @@ app.put('/delete', function(req, res) {
 
 //edit
 app.put('/data', function(req, res) {
-    var sql = 'UPDATE users SET firstname= ? , lastname = ? WHERE id = ?';
-    db.query(sql,[req.body.firstname,req.body.lastname,req.body.idkey],function (error, results) {
+    var sql = 'UPDATE users SET, id = ?, name = ? , size = ?,email = ?, quantity = ?';
+    db.query(sql,[req.body.idkey,req.body.name,req.body.size,req.body.email,req.body.quantity],function (error, results) {
         if(error) throw error;
         res.send(JSON.stringify(results));
     });
@@ -62,9 +62,10 @@ app.post('/data', function(req, res){
     console.log(req.body);
     let data = {
         id:req.body.idkey,
-        firstname:req.body.firstname,
-        lastname:req.body.lastname,
-        email:req.body.email
+        name:req.body.name,
+        size:req.body.size,
+        quantity:req.body.quantity,
+        email:req.body.email,
     };
     let sql = 'INSERT INTO users SET ?';
     db.query(sql, data, (err, result)=>{
