@@ -12,10 +12,9 @@ export default class Showdata extends Component{
             list:[],
             timestamp:"",
             idkey:"",
-            name:"",
-            size:"",
-            email:"",
-            quantity:""
+            firstname:"",
+            lastname:"",
+            email:""
         }
         this.handleChang = this.handleChang.bind(this);
         this.handleClicked = this.handleClicked.bind(this);
@@ -59,10 +58,9 @@ export default class Showdata extends Component{
         this.setState({
             timestamp:user.timestamp,
             idkey:user.id,
-            name:user.name,
-            size:user.size,
-            email:user.email,
-            quantity:user.quantity
+            firstname:user.firstname,
+            lastname:user.lastname,
+            email:user.email
         })
     }
     handleChang = (e) => {
@@ -73,10 +71,9 @@ export default class Showdata extends Component{
         let data = {
             timestamp:this.timestamp,
             idkey:this.state.idkey,
-            name:this.name,
-            size:this.size,
-            email:this.email,
-            quantity:this.quantity
+            firstname:this.state.firstname,
+            lastname:this.state.lastname,
+            email:this.state.email
         }
         axios.put(url,data)
     }
@@ -86,19 +83,17 @@ export default class Showdata extends Component{
         let data = {
             timestamp:this.timestamp,
             idkey:this.state.idkey,
-            name:this.state.name,
-            size:this.state.size,
-            email:this.state.email,
-            quantity:this.state.quantity
+            firstname:this.state.firstname,
+            lastname:this.state.lastname,
+            email:this.state.email
         }
         axios.put(url,data)
         this.setState({
             timestamp:"",
             idkey:"",
-            name:"",
-            size:"",
-            email:"",
-            quantity:""
+            firstname:"",
+            lastname:"",
+            email:""
             
         });
 	this.closeModal();
@@ -109,22 +104,17 @@ export default class Showdata extends Component{
 
         return (
             <div className="App">
-                <h2 className="my-4">👕👕 ข้อมูลผู้สั่งซื้อเสื้อ 👕👕<br/></h2>
+                <h2 className="my-4">Users Information<br/></h2>
                 <hr/>
-                <form >
-                    <label form="">ชื่อ</label>
-                    <input type="text" placeholder="ป้อนชื่อที่ค้นหา" name="emname" class="form-control"></input>
-                </form>
                 <div className="container p-3 my-3 bg-dark text-white">
                     <table className="table table-dark">
                         <thead>
                             <tr>
-                            <th>เวลาสั่งซื้อ</th>
-                            <th>หมายเลข</th>
-                            <th>ชื่อ</th>
-                            <th>ไซส์</th>
-                            <th>อีเมล์</th>
-                            <th>จำนวน</th>
+                            <th>TimeStamp</th>
+                            <th>ID</th>
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                            <th>email</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -133,10 +123,9 @@ export default class Showdata extends Component{
                                         <tr>
                                             <td>{user.timestamp}</td>
                                             <td>{user.id}</td>
-                                            <td>{user.name}</td>
-                                            <td>{user.size}</td>
+                                            <td>{user.firstname}</td>
+                                            <td>{user.lastname}</td>
                                             <td>{user.email}</td>
-                                            <td>{user.quantity}</td>
                                             <td><button type="button" class="btn btn-warning" onClick={()=>this.call(user)}>Edit</button></td>
                                             <td><button type="button" class="btn btn-danger"  onClick={()=>this.onDelete(user)}>Delete</button></td>
                                             <div className="box">
@@ -151,20 +140,17 @@ export default class Showdata extends Component{
                                                         <div className="form-group">
                                                             <h3><label htmlFor="id">TimeStamp: {this.state.timestamp}<br/></label></h3>
                                                         </div>
+                            
                                                         <div className="form-group">
                                                             <h3><label htmlFor="id">ID: {this.state.idkey}<br/></label></h3>
                                                         </div>
                                                         <div className="form-group">
-                                                            <label>name:</label>
-                                                            <input type="text" className="form-control" id="name" onChange={this.handleChang} value={this.state.name}/>
+                                                            <label>firstname:</label>
+                                                            <input type="text" className="form-control" id="firstname" onChange={this.handleChang} value={this.state.firstname}/>
                                                         </div>
                                                         <div className="form-group">
-                                                            <label>size:</label>
-                                                            <input type="text" className="form-control" id="size" onChange={this.handleChang} value={this.state.size}/>
-                                                        </div>
-                                                        <div className="form-group">
-                                                            <label>quantity:</label>
-                                                            <h3><label htmlFor="quantity">quantity: {this.state.quantity}<br/></label></h3>
+                                                            <label>lasttname:</label>
+                                                            <input type="text" className="form-control" id="lastname" onChange={this.handleChang} value={this.state.lastname}/>
                                                         </div>
                                                         <button type="button" className="btn btn-primary" onClick={this.handleClicked}>Submit</button>
                                                     </form>
